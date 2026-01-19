@@ -1,507 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Kids Bank — Cashibra</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cashibra — Kids Bank Simulator</title>
 
-<!-- Poppins for a modern, friendly look -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --bg: #f4f8ff;
-    --card: #ffffff;
-    --muted: #6b7280;
-    --accent-start: #0b3d91;
-    --accent-end: #4a7bff;
-    --success: #16a34a;
-    --danger: #dc2626;
-    --glass: rgba(255,255,255,0.7);
-    --soft-shadow: 0 8px 30px rgba(11,61,145,0.08);
-    --radius: 14px;
-  }
+:root{
+  --bg:#020617;
+  --panel:#020617;
+  --neon:#22d3ee;
+  --green:#4ade80;
+  --gold:#facc15;
+  --danger:#fb7185;
+}
 
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-    background: linear-gradient(180deg,#eef5ff 0%, var(--bg) 40%);
-    color:#0f172a;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    padding:28px;
-  }
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at top,#0f172a,#020617);
+  color:#e5e7eb;
+  font-family:Poppins,system-ui;
+}
 
-  /* Header */
-  header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:16px;
-    max-width:1100px;
-    margin:0 auto 26px;
-  }
-  .brand {
-    display:flex;
-    gap:14px;
-    align-items:center;
-  }
-  .logo {
-    width:56px;
-    height:56px;
-    border-radius:12px;
-    background:linear-gradient(135deg,var(--accent-start),var(--accent-end));
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 8px 24px rgba(74,123,255,0.16);
-    color:white;font-weight:700;font-size:20px;
-  }
-  .brand h1{font-size:20px;margin:0;letter-spacing:0.2px}
-  .brand p{margin:0;color:var(--muted);font-size:13px}
+/* GAME HUD */
+.hud{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 18px;
+  background:#020617;
+  border-bottom:2px solid rgba(255,255,255,.08);
+}
 
-  nav a{
-    color:var(--accent-start);
-    text-decoration:none;
-    font-weight:600;
-    margin-left:18px;
-  }
+.level{
+  font-family:"Press Start 2P";
+  font-size:12px;
+  color:var(--gold);
+}
 
-  /* Layout */
-  .wrap {
-    max-width:1100px;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns: 1fr 420px;
-    gap:26px;
-    align-items:start;
-  }
+.xp{
+  width:160px;
+  height:10px;
+  background:#020617;
+  border-radius:10px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.15);
+}
+.xp i{
+  display:block;
+  height:100%;
+  width:40%;
+  background:linear-gradient(90deg,var(--neon),var(--green));
+  transition:width .5s;
+}
 
-  /* Left column */
-  .left {
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-  }
+/* MAIN */
+.game{
+  max-width:1100px;
+  margin:24px auto;
+  padding:16px;
+  display:grid;
+  grid-template-columns:1fr 420px;
+  gap:20px;
+}
 
-  /* Balance card */
-  .card {
-    background:var(--card);
-    border-radius:var(--radius);
-    padding:20px;
-    box-shadow:var(--soft-shadow);
-  }
+/* PIG CHARACTER */
+.pig{
+  width:140px;height:140px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#fb7185,#f43f5e);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:48px;
+  box-shadow:0 0 80px rgba(244,63,94,.6);
+  margin:auto;
+  transition:transform .4s;
+}
+.pig.happy{transform:scale(1.1)}
+.pig.sad{filter:grayscale(1)}
 
-  .balance-row{
-    display:flex;
-    align-items:center;
-    gap:18px;
-  }
+/* BANK PANEL */
+.panel{
+  background:rgba(255,255,255,.03);
+  border-radius:20px;
+  padding:20px;
+  border:1px solid rgba(255,255,255,.08);
+}
 
-  .piggy {
-    width:96px;height:96px;border-radius:12px;
-    background:linear-gradient(135deg,#ff6f6f,#ff3b3b);
-    display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
-    box-shadow:0 16px 40px rgba(255,59,59,0.12);
-    transition:transform .45s cubic-bezier(.2,.9,.3,1);
-  }
-  .piggy.bounce { transform:translateY(-12px) scale(1.02); }
+.balance{
+  text-align:center;
+  font-size:34px;
+  font-weight:800;
+  color:#ecfeff;
+  margin:16px 0;
+}
 
-  .balance-info { flex:1; }
-  .balance-info .label { color:var(--muted); font-weight:600; font-size:13px; }
-  .balance-info .amount { font-size:34px; font-weight:700; margin-top:6px; }
+/* BUTTONS */
+input{
+  width:100%;
+  padding:14px;
+  background:#020617;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.15);
+  color:white;
+  font-size:16px;
+}
+button{
+  width:100%;
+  margin-top:10px;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(90deg,var(--neon),var(--green));
+  color:#022c22;
+  font-weight:800;
+  cursor:pointer;
+}
+button.alt{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.2);
+  color:#93c5fd;
+}
 
-  /* controls */
-  .controls {
-    display:flex;
-    gap:12px;
-    margin-top:16px;
-    flex-wrap:wrap;
-  }
-  .input {
-    flex:1;
-    min-width:180px;
-    display:flex;
-    gap:8px;
-    align-items:center;
-  }
-  .input input[type="number"]{
-    width:100%;
-    padding:12px 14px;
-    border-radius:10px;
-    border:1px solid #e6eefc;
-    font-size:16px;
-    outline:none;
-    background:#fbfbff;
-  }
-  .btn {
-    padding:12px 18px;
-    border-radius:10px;
-    border:none;
-    cursor:pointer;
-    font-weight:700;
-    color:white;
-    background:linear-gradient(90deg,var(--accent-start),var(--accent-end));
-    box-shadow:0 10px 30px rgba(11,61,145,0.12);
-    transition:transform .12s ease,box-shadow .12s ease;
-  }
-  .btn:active{ transform:translateY(1px) scale(.998) }
+/* CHEST */
+.chest{
+  margin-top:18px;
+  padding:14px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#facc15,#fb923c);
+  color:#422006;
+  font-weight:800;
+  text-align:center;
+  cursor:pointer;
+  animation:pulse 1.8s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+  100%{transform:scale(1)}
+}
 
-  .btn.secondary {
-    background:transparent;color:var(--accent-start);border:1px solid rgba(11,61,145,0.08);
-    box-shadow:none;font-weight:600;
-  }
-
-  /* Goal */
-  .goal {
-    margin-top:18px;
-    display:flex;
-    align-items:center;
-    gap:14px;
-  }
-  .goal .bar {
-    flex:1;
-    height:14px;
-    background:linear-gradient(90deg,#eef5ff,#f7fbff);
-    border-radius:14px;
-    overflow:hidden;
-    border:1px solid rgba(11,61,145,0.06);
-  }
-  .goal .bar > i{
-    display:block;height:100%;
-    background:linear-gradient(90deg,#ffcc00,#ff6f00);
-    width:0%;
-    transition:width .8s cubic-bezier(.2,.95,.2,1);
-  }
-  .goal small{ color:var(--muted); font-size:13px; min-width:130px; text-align:right;}
-
-  /* Transactions */
-  .tx-list {
-    margin-top:18px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-  }
-  .tx {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 12px;
-    border-radius:10px;
-    background:linear-gradient(180deg,#fff,#fbfdff);
-    border:1px solid rgba(10,12,30,0.02);
-  }
-  .tx p{ margin:0; font-weight:600 }
-  .tx .amt { font-weight:800 }
-
-  /* Right column (info) */
-  .right {
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-  }
-
-  .tip {
-    padding:16px;
-    border-radius:12px;
-    background: linear-gradient(180deg,#ffffff,#f6fbff);
-    box-shadow:var(--soft-shadow);
-  }
-  .tip h3{ margin:0 0 8px 0; color:var(--accent-start) }
-  .tip p{ margin:0; color:var(--muted) }
-
-  .goal-card {
-    padding:18px;
-    border-radius:12px;
-    background:linear-gradient(90deg,#fff,#f8fdff);
-    box-shadow:var(--soft-shadow);
-    display:flex;
-    gap:12px;
-    align-items:center;
-  }
-
-  .emphasize { color:var(--accent-start); font-weight:700 }
-
-  /* small screens */
-  @media (max-width:980px){
-    .wrap { grid-template-columns: 1fr; }
-    header { padding:12px; gap:8px }
-    body { padding:16px }
-  }
+/* BOSS */
+.boss{
+  background:rgba(255,255,255,.04);
+  border-radius:18px;
+  padding:16px;
+  border:2px dashed rgba(255,255,255,.2);
+  text-align:center;
+}
+.lock{
+  color:#fb7185;
+  font-weight:800;
+}
 </style>
 </head>
+
 <body>
 
-<header>
-  <div class="brand">
-    <div class="logo">CB</div>
-    <div>
-      <h1>Cashibra Kids Bank</h1>
-      <p>Simple banking practice for ages 10–12</p>
+<!-- HUD -->
+<div class="hud">
+  <div class="level">LVL 3</div>
+  <div class="xp"><i id="xpBar"></i></div>
+</div>
+
+<div class="game">
+
+  <!-- LEFT -->
+  <div class="panel">
+    <div class="pig" id="pig">🐷</div>
+    <div class="balance" id="balance">₹0</div>
+
+    <input id="moneyInput" type="number" placeholder="Enter coins">
+    <button onclick="deposit()">Deposit (Gain XP)</button>
+    <button class="alt" onclick="withdraw()">Withdraw</button>
+
+    <div class="chest" onclick="openChest()">
+      🎁 Tap to open reward chest
     </div>
   </div>
-  <nav>
-    <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="faq.html">FAQ</a>
-        <a href="learn.html">Start Learning</a>
-        <a href="bossbattle.html">Battle</a>
 
-  </nav>
-</header>
-
-<main class="wrap">
-
-  <!-- LEFT: Bank UI -->
-  <section class="left">
-
-    <!-- Balance card -->
-    <div class="card" aria-live="polite">
-      <div class="balance-row">
-        <div id="piggy" class="piggy" title="Your piggy bank">
-          <!-- SVG pig icon -->
-          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 8px 18px rgba(255,80,80,0.12))">
-            <path d="M4 10c0 0 1-4 6-4s6 4 6 4 3 .5 3 3-2 3-2 3H4s-2-1-2-4 2-6 2-6z" fill="#fff" opacity="0.12"/>
-            <path d="M4.5 11c0 0 0.9-3.3 5.5-3.3 4.6 0 5.5 3.3 5.5 3.3S17.9 12 18.5 13c.6 1 0.5 2 0.5 2H4s-.6-1.3.5-4z" fill="#fff"/>
-            <circle cx="8" cy="11.5" r="0.9" fill="#fff" opacity="0.8"/>
-            <path d="M9.9 7.8c-.2-.2-.6-.2-.8 0-.2.2-.2.5 0 .7.2.2.6.2.8 0 .2-.2.2-.5 0-.7z" fill="#fff"/>
-          </svg>
-        </div>
-
-        <div class="balance-info">
-          <div class="label">Current Balance</div>
-          <div class="amount" id="balanceAmount">₹0</div>
-        </div>
-
-        <div style="min-width:110px;text-align:right;">
-          <div style="color:var(--muted);font-weight:600;font-size:13px">Account</div>
-          <div style="font-weight:700;color:#0b3d91">Kids Saver</div>
-        </div>
-      </div>
-
-      <!-- inputs -->
-      <div class="controls" aria-hidden="false">
-        <div class="input">
-          <input id="moneyInput" type="number" min="1" placeholder="Enter amount (₹)" />
-        </div>
-
-        <button id="depositBtn" class="btn">Deposit</button>
-        <button id="withdrawBtn" class="btn secondary">Withdraw</button>
-      </div>
-
-      <!-- goal -->
-      <div class="goal" aria-hidden="false">
-        <div class="bar" aria-label="Goal progress">
-          <i id="goalBar"></i>
-        </div>
-        <small id="goalText">Goal: ₹0 (0%)</small>
-      </div>
-
-      <!-- transactions -->
-      <div style="margin-top:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div style="font-weight:700">Recent Activity</div>
-          <button id="clearBtn" class="btn secondary" title="Clear history">Clear</button>
-        </div>
-
-        <div id="txList" class="tx-list" aria-live="polite"></div>
-      </div>
+  <!-- RIGHT -->
+  <div class="panel">
+    <h3>🏆 Boss Challenge</h3>
+    <div class="boss">
+      <p>Defeat the Savings Dragon</p>
+      <p class="lock">Locked — Reach ₹1000</p>
     </div>
+  </div>
 
-    <!-- Quick tips card -->
-    <div class="card tip">
-      <h3>Quick Savings Tip</h3>
-      <p>Set a small goal, save a little every week, and watch it grow. Even ₹10 per week becomes a habit that lasts.</p>
-    </div>
-  </section>
-
-  <!-- RIGHT: Info & goal settings -->
-  <aside class="right">
-    <div class="goal-card">
-      <div style="flex:1">
-        <div style="font-size:14px;color:var(--muted)">Savings Goal</div>
-        <div style="font-weight:800;font-size:20px;margin-top:6px">Set a target and track it</div>
-        <div style="margin-top:10px;color:var(--muted)">Enter target amount and press Save Goal</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <label style="display:block;color:var(--muted);font-weight:600">Set Goal Amount (₹)</label>
-      <div style="display:flex;gap:10px;margin-top:10px">
-        <input id="goalInput" type="number" placeholder="e.g. 1000" style="padding:10px;border-radius:10px;border:1px solid #eef4ff;flex:1" />
-        <button id="saveGoalBtn" class="btn">Save Goal</button>
-      </div>
-
-      <div style="margin-top:14px;color:var(--muted);font-size:14px">
-        Tip: Try small steps — reaching a goal is more about habit than big deposits.
-      </div>
-    </div>
-
-    <div class="card tip" aria-hidden="false">
-      <h3>Why this helps</h3>
-      <p style="color:var(--muted)">Practicing deposits and tracking a goal teaches budgeting, delayed gratification, and how savings grow over time.</p>
-    </div>
-  </aside>
-
-</main>
+</div>
 
 <script>
-/* Kids Bank — local simulation (no real money)
-   - Balance and transactions stored in localStorage
-   - Smooth UI feedback: piggy bounce on deposit
-*/
+let balance = 0;
+let xp = 40;
 
-// Helpers
-const $ = (id)=>document.getElementById(id);
-const format = (n)=> '₹' + Number(n).toLocaleString('en-IN');
+const balanceEl = document.getElementById("balance");
+const xpBar = document.getElementById("xpBar");
+const pig = document.getElementById("pig");
 
-// State
-let state = {
-  balance: 0,
-  tx: [],       // {type:'deposit'|'withdraw', amount, time}
-  goal: 0
-};
-
-const STORAGE_KEY = 'cashibra_kids_bank_v1';
-
-// Load saved state
-function loadState(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      const parsed = JSON.parse(raw);
-      if(typeof parsed === 'object'){
-        state = Object.assign(state, parsed);
-      }
-    }
-  }catch(e){ console.warn('load error', e) }
-  renderAll();
+function update(){
+  balanceEl.innerText = "₹" + balance;
+  xpBar.style.width = xp + "%";
 }
 
-// Save state
-function saveState(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+function deposit(){
+  const v = Number(moneyInput.value);
+  if(!v || v<=0) return;
+  balance += v;
+  xp = Math.min(100, xp + 10);
+  pig.classList.add("happy");
+  setTimeout(()=>pig.classList.remove("happy"),400);
+  update();
 }
 
-// Render functions
-function renderBalance(){
-  $('balanceAmount').innerText = format(state.balance);
+function withdraw(){
+  const v = Number(moneyInput.value);
+  if(!v || v>balance) return;
+  balance -= v;
+  pig.classList.add("sad");
+  setTimeout(()=>pig.classList.remove("sad"),400);
+  update();
 }
 
-function renderTx(){
-  const list = $('txList');
-  list.innerHTML = '';
-  if(state.tx.length === 0){
-    const empty = document.createElement('div');
-    empty.className = 'tx';
-    empty.innerHTML = '<p style="color:var(--muted)">No transactions yet — make your first deposit!</p>';
-    list.appendChild(empty);
-    return;
-  }
-
-  // show latest 6
-  state.tx.slice().reverse().slice(0,6).forEach(item=>{
-    const el = document.createElement('div');
-    el.className = 'tx';
-    const left = document.createElement('div');
-    left.innerHTML = `<p style="font-size:14px">${item.type === 'deposit' ? 'Deposit' : 'Withdraw'}</p>
-                      <div style="color:var(--muted);font-size:12px">${new Date(item.time).toLocaleString()}</div>`;
-    const right = document.createElement('div');
-    right.innerHTML = `<div class="amt">${format(item.amount)}</div>`;
-    el.appendChild(left);
-    el.appendChild(right);
-    list.appendChild(el);
-  });
+function openChest(){
+  alert("🎉 You found +50 XP!");
+  xp = Math.min(100, xp + 20);
+  update();
 }
 
-function renderGoal(){
-  const bar = $('goalBar');
-  const text = $('goalText');
-  if(state.goal > 0){
-    const percent = Math.min(100, Math.round((state.balance / state.goal) * 100));
-    bar.style.width = percent + '%';
-    text.innerText = `Goal: ${format(state.goal)} (${percent}%)`;
-  } else {
-    bar.style.width = '0%';
-    text.innerText = `Goal: ${format(0)} (0%)`;
-  }
-}
-
-function renderAll(){
-  renderBalance();
-  renderTx();
-  renderGoal();
-}
-
-// Actions
-function deposit(amount){
-  amount = Number(amount);
-  if(isNaN(amount) || amount <= 0) return alert('Enter a positive amount.');
-  state.balance += amount;
-  state.tx.push({type:'deposit', amount, time: Date.now()});
-  saveState();
-  renderAll();
-  animateDeposit();
-}
-
-function withdraw(amount){
-  amount = Number(amount);
-  if(isNaN(amount) || amount <= 0) return alert('Enter a positive amount.');
-  if(amount > state.balance) return alert('Not enough balance.');
-  state.balance -= amount;
-  state.tx.push({type:'withdraw', amount, time: Date.now()});
-  saveState();
-  renderAll();
-}
-
-function setGoal(amount){
-  amount = Number(amount);
-  if(isNaN(amount) || amount <= 0) return alert('Enter a positive goal amount.');
-  state.goal = amount;
-  saveState();
-  renderAll();
-}
-
-function clearHistory(){
-  if(!confirm('Clear all transactions? This cannot be undone.')) return;
-  state.tx = [];
-  saveState();
-  renderAll();
-}
-
-// Animations & UI hooks
-function animateDeposit(){
-  const pig = $('piggy');
-  pig.classList.add('bounce');
-  setTimeout(()=> pig.classList.remove('bounce'), 700);
-}
-
-// Events
-document.getElementById('depositBtn').addEventListener('click', ()=>{
-  const v = Number($('moneyInput').value);
-  deposit(v);
-  $('moneyInput').value = '';
-});
-
-document.getElementById('withdrawBtn').addEventListener('click', ()=>{
-  const v = Number($('moneyInput').value);
-  withdraw(v);
-  $('moneyInput').value = '';
-});
-
-document.getElementById('saveGoalBtn').addEventListener('click', ()=>{
-  const v = Number($('goalInput').value);
-  setGoal(v);
-  $('goalInput').value = '';
-});
-
-document.getElementById('clearBtn').addEventListener('click', ()=>{
-  clearHistory();
-});
-
-// Initialize
-loadState();
-
+update();
 </script>
+
 </body>
 </html>
