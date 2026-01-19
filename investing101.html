@@ -1,98 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Investing 101 — Cashibra</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Investing Quest — Cashibra</title>
+
 <style>
-  :root{--bg:#0f1724;--card:#0b1220;--accent:#2dd4bf;--muted:#9aa}
-  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#e6f7f6}
-  header{background:#071428;padding:18px;color:var(--accent);font-weight:700}
-  .wrap{max-width:980px;margin:26px auto;padding:18px}
-  .card{background:var(--card);padding:16px;border-radius:12px;margin-bottom:14px;box-shadow:0 8px 30px rgba(0,0,0,0.4)}
-  h1{margin:0;color:var(--accent)}
-  p{line-height:1.6;color:#d6f3ee}
-  label{display:block;margin-top:10px;color:var(--muted)}
-  input[type=number],select{width:100%;padding:10px;border-radius:8px;border:none;margin-top:8px;background:#071826;color:#e6f7f6}
-  button{margin-top:12px;padding:10px;border-radius:8px;border:none;background:var(--accent);color:#012;cursor:pointer;font-weight:700}
-  .row{display:flex;gap:12px;flex-wrap:wrap}
-  .col{flex:1;min-width:150px}
-  .result{margin-top:12px;padding:12px;border-radius:8px;background:#052b28;color:var(--accent);font-weight:700}
-  a.back{display:inline-block;margin-top:14px;color:var(--accent);text-decoration:none;font-weight:700}
+:root{
+  --bg:#070b16;
+  --card:#0e1628;
+  --accent:#38f2af;
+  --accent2:#60a5fa;
+  --muted:#9aa4bf;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,Segoe UI;
+  background:radial-gradient(circle at top,#0f1b38,#050814);
+  color:#e5f4ff;
+}
+header{
+  padding:18px;
+  text-align:center;
+  font-weight:800;
+  color:var(--accent);
+  background:#050814;
+  border-bottom:1px solid #1f2a44;
+}
+.wrap{
+  max-width:900px;
+  margin:0 auto;
+  padding:18px;
+}
+.card{
+  background:var(--card);
+  border-radius:16px;
+  padding:22px;
+  margin-bottom:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+h2{margin-top:0;color:var(--accent)}
+p{color:#dbeafe;line-height:1.6}
+.center{text-align:center}
+button{
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border:none;
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:800;
+  cursor:pointer;
+  margin-top:14px;
+}
+.hidden{display:none}
+
+/* animations */
+.coin{
+  width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(135deg,#fde68a,#f59e0b);
+  margin:10px auto;
+  animation:drop 1.2s infinite alternate;
+}
+@keyframes drop{from{transform:translateY(0)}to{transform:translateY(14px)}}
+
+.bar{
+  height:14px;
+  background:#020617;
+  border-radius:14px;
+  overflow:hidden;
+  margin-top:10px;
+}
+.bar span{
+  display:block;height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#4ade80,#22d3ee);
+  transition:width 1s ease;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:14px;
+}
+.choice{
+  background:#020617;
+  padding:16px;
+  border-radius:14px;
+  text-align:center;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.06);
+}
+.choice:hover{border-color:var(--accent)}
 </style>
 </head>
+
 <body>
-<header>Cashibra — Investing 101</header>
+
+<header>🎮 Investing Quest — Cashibra</header>
 
 <div class="wrap">
-  <div class="card">
-    <h1>Why Invest?</h1>
-    <p>Investing helps your money grow faster than simply saving it. Over time, compounding and steady contributions can turn small amounts into significant sums.</p>
+
+<!-- SCENE 1 -->
+<div class="card" id="s1">
+  <h2>Scene 1: Why Investing Exists</h2>
+  <p>You earn money.  
+  If it just sits, it sleeps. 😴  
+  Investing wakes it up.</p>
+  <div class="coin"></div>
+  <p class="center">Money that moves → grows.</p>
+  <div class="center">
+    <button onclick="next(1)">Wake the money ▶</button>
+  </div>
+</div>
+
+<!-- SCENE 2 -->
+<div class="card hidden" id="s2">
+  <h2>Scene 2: Simple vs Compound</h2>
+  <p><b>Simple:</b> money grows slowly.  
+  <br><b>Compound:</b> money earns on its own earnings.</p>
+
+  <p>Watch the difference:</p>
+  <small>Simple Growth</small>
+  <div class="bar"><span id="simple"></span></div>
+
+  <small>Compound Growth</small>
+  <div class="bar"><span id="compound"></span></div>
+
+  <div class="center">
+    <button onclick="grow()">Simulate 5 years ▶</button>
+  </div>
+</div>
+
+<!-- SCENE 3 -->
+<div class="card hidden" id="s3">
+  <h2>Scene 3: SIP = Habit Power</h2>
+  <p>SIP means investing a small amount every month.</p>
+  <p>You don’t time the market — you <b>train consistency</b>.</p>
+
+  <div class="center">
+    <div class="coin"></div>
+    <p>Month by month… coins keep dropping.</p>
+    <button onclick="next(3)">Build habit ▶</button>
+  </div>
+</div>
+
+<!-- SCENE 4 -->
+<div class="card hidden" id="s4">
+  <h2>Scene 4: Mutual Funds</h2>
+  <p>You don’t pick one company.</p>
+  <p>You spread money across many.</p>
+
+  <div class="grid">
+    <div class="choice" onclick="pick(this)">📉 One stock</div>
+    <div class="choice" onclick="pick(this)">📊 20 companies</div>
+    <div class="choice" onclick="pick(this)">🏦 Expert managed</div>
   </div>
 
-  <div class="card">
-    <h2>Where can you invest?</h2>
-    <p><b>Stocks:</b> Own a tiny piece of a company — high risk, high return potential.<br>
-       <b>Mutual Funds:</b> Many people pool money and a fund manager buys a set of stocks — good for beginners.<br>
-       <b>SIP (Systematic Investment Plan):</b> Invest a fixed amount every month into a mutual fund — helps average out highs and lows.<br>
-       <b>ETFs:</b> Like mutual funds but traded on stock exchanges.</p>
+  <div class="center">
+    <p id="mfText" class="hidden">✅ Risk is shared. Stress is lower.</p>
+    <button onclick="next(4)" class="hidden" id="mfBtn">Understood ▶</button>
   </div>
+</div>
 
-  <div class="card">
-    <h2>SIP & Lump-sum Calculator (interactive)</h2>
-    <label>Monthly SIP amount (₹)</label>
-    <input id="sipAmt" type="number" placeholder="e.g., 1000" />
-    <label>Expected annual return (%)</label>
-    <input id="rate" type="number" placeholder="e.g., 10" />
-    <label>Years</label>
-    <input id="years" type="number" placeholder="e.g., 10" />
-    <button onclick="calcSIP()">Calculate SIP</button>
+<!-- SCENE 5 -->
+<div class="card hidden" id="s5">
+  <h2>Final Scene: The Real Secret</h2>
+  <p>The biggest advantage isn’t money.</p>
+  <p><b>It’s time.</b></p>
 
-    <div id="sipResult" class="result" style="display:none"></div>
+  <p>If you start early and stay patient:</p>
+  <h2 class="center">Time works for you 🕒</h2>
+
+  <div class="center">
+    <a href="index.html" style="color:var(--accent);font-weight:800;text-decoration:none;">
+      🏠 Back to Home
+    </a>
   </div>
+</div>
 
-  <div class="card">
-    <h2>Risk vs Return (interactive)</h2>
-    <p>Move the slider to pick your risk appetite. Higher risk can mean higher returns but also more volatility.</p>
-    <label>Risk level: <span id="riskText">Medium</span></label>
-    <input id="riskSlider" type="range" min="1" max="5" value="3" oninput="updateRisk()" />
-    <div id="riskNote" style="margin-top:10px;color:#bfeee6"></div>
-  </div>
-
-  <a class="back" href="index.html">⬅ Back to Home</a>
 </div>
 
 <script>
-// SIP formula: Future Value of series: FV = P * [ ( (1 + r)^n - 1 ) / r ] * (1 + r)
-// where r = monthly rate, n = months, P = monthly SIP
-function calcSIP(){
-  const P = Number(document.getElementById('sipAmt').value) || 0;
-  const annual = Number(document.getElementById('rate').value) || 0;
-  const years = Number(document.getElementById('years').value) || 0;
-  if(P <= 0 || annual <= 0 || years <= 0){
-    alert('Enter valid numbers');
-    return;
-  }
-  const r = annual/100/12;
-  const n = years*12;
-  const fv = P * ( (Math.pow(1+r, n) - 1) / r ) * (1 + r);
-  const invested = P * n;
-  document.getElementById('sipResult').style.display = 'block';
-  document.getElementById('sipResult').innerHTML = `Invested: ₹${Math.round(invested).toLocaleString()}<br>Estimated value: ₹${Math.round(fv).toLocaleString()} (at ${annual}% p.a.)`;
+function next(n){
+  document.getElementById('s'+n).classList.add('hidden');
+  document.getElementById('s'+(n+1)).classList.remove('hidden');
 }
-
-function updateRisk(){
-  const val = Number(document.getElementById('riskSlider').value);
-  const text = document.getElementById('riskText');
-  const note = document.getElementById('riskNote');
-  if(val <= 1){ text.innerText = 'Very Low'; note.innerText = 'Low returns, safe (e.g., Savings, FDs). Good if you dislike risk.'; }
-  else if(val === 2){ text.innerText = 'Low'; note.innerText = 'Lower risk, lower returns (e.g., short-term debt funds).'; }
-  else if(val === 3){ text.innerText = 'Medium'; note.innerText = 'Balanced: mix of equity & debt (mutual funds). Good for many teens.'; }
-  else if(val === 4){ text.innerText = 'High'; note.innerText = 'Higher potential returns, more ups and downs (stocks, equity funds).'; }
-  else { text.innerText = 'Very High'; note.innerText = 'Very volatile — big swings. Only for experienced investors.'; }
+function grow(){
+  document.getElementById('simple').style.width = '40%';
+  document.getElementById('compound').style.width = '85%';
+  setTimeout(()=>next(2),1200);
 }
-// init
-updateRisk();
+function pick(el){
+  document.getElementById('mfText').classList.remove('hidden');
+  document.getElementById('mfBtn').classList.remove('hidden');
+}
 </script>
+
 </body>
 </html>
