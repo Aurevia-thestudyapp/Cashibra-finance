@@ -162,7 +162,64 @@ footer { text-align:center; margin-top:50px; font-weight:700; color:#0b3d91; pad
    Start Learning
 </a>
 </centre>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDHLx6n2HxIiJwhCtX2NGLNQSQa176tAGY",
+  authDomain: "cashibra-7925a.firebaseapp.com",
+  projectId: "cashibra-7925a",
+  storageBucket: "cashibra-7925a.firebasestorage.app",
+  messagingSenderId: "1001418884693",
+  appId: "1:1001418884693:web:0438b245f5a6b837abf6dc",
+  measurementId: "G-CSH5YZ7C2W"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
+<script>
+async function giveDailyCoins(userId){
+
+  const ref = db.collection("users").doc(userId);
+  const doc = await ref.get();
+
+  if(!doc.exists){
+    await ref.set({
+      coins:5,
+      lastClaim:Date.now()
+    });
+    return 5;
+  }
+
+  const data = doc.data();
+  const last = data.lastClaim || 0;
+
+  if(Date.now() - last > 86400000){
+
+    const newCoins = data.coins + 5;
+
+    await ref.update({
+      coins:newCoins,
+      lastClaim:Date.now()
+    });
+
+    return newCoins;
+  }
+
+  return data.coins;
+}
+</script>
+<div style="position:fixed;top:10px;right:10px">
+🪙 Coins: <span id="coins">0</span>
+</div>
+<script>
+giveDailyCoins("player1").then(c=>{
+  document.getElementById("coins").innerText = c;
+});
+</script>
 <footer>© 2025 Cashibra | <a href="https://www.youtube.com/@Official_Cashibra" target="_blank">Visit our Channel</a></footer>
 
 </body>
