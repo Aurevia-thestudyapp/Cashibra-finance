@@ -1,181 +1,308 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Boss Battle Demo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: white;
-      color: black;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
+<title>Cashibra Boss Battle</title>
 
-    header {
-      padding: 20px;
-      background: #0b3d91;
-      color: white;
-      margin-bottom: 30px;
-      border-radius: 10px;
-      font-size: 26px;
-      font-weight: bold;
-    }
+<style>
 
-    /* 🔥 Boss animation — jumps up & down */
-    @keyframes jumpBoss {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-25px); }
-      100% { transform: translateY(0); }
-    }
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+padding:20px;
+}
 
-    .boss-box {
-      background: #ff3b3b;
-      padding: 40px;
-      border-radius: 20px;
-      max-width: 600px;
-      margin: auto;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
-      animation: jumpBoss 1.3s infinite ease-in-out;
-      color: white;
-      font-weight: bold;
-    }
+/* HEADER */
 
-    .options {
-      margin-top: 25px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+header{
+background:#020617;
+padding:20px;
+font-size:26px;
+font-weight:bold;
+border-bottom:2px solid #1e293b;
+}
 
-    button.option {
-      padding: 15px;
-      background: #e0e0e0;
-      border: none;
-      color: black;
-      cursor: pointer;
-      font-size: 16px;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
+/* BOSS AREA */
 
-    button.option:hover {
-      background: #cccccc;
-    }
+.battle-area{
+max-width:700px;
+margin:auto;
+margin-top:40px;
+}
 
-    .correct {
-      background: #21c021 !important;
-      color: white !important;
-    }
+/* HP BARS */
 
-    .wrong {
-      background: #d02020 !important;
-      color: white !important;
-    }
+.hp-container{
+margin:20px 0;
+}
 
-    #nextBtn {
-      display: none;
-      margin-top: 30px;
-      padding: 12px 20px;
-      font-size: 18px;
-      background: #0b3d91;
-      border: none;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+.hp-label{
+margin-bottom:6px;
+}
 
-    a.home-btn {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 12px 20px;
-      background: #0b3d91;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-    }
-  </style>
+.hp-bar{
+height:18px;
+background:#1e293b;
+border-radius:10px;
+overflow:hidden;
+}
+
+.hp-fill{
+height:100%;
+background:#ef4444;
+width:100%;
+transition:0.4s;
+}
+
+/* PLAYER HP */
+
+.player .hp-fill{
+background:#22c55e;
+}
+
+/* BOSS BOX */
+
+@keyframes bossFloat{
+0%{transform:translateY(0);}
+50%{transform:translateY(-18px);}
+100%{transform:translateY(0);}
+}
+
+.boss{
+background:#ef4444;
+padding:40px;
+border-radius:20px;
+margin:30px 0;
+animation:bossFloat 1.6s infinite ease-in-out;
+font-size:20px;
+font-weight:bold;
+}
+
+/* QUESTION */
+
+.question{
+font-size:22px;
+margin-bottom:20px;
+}
+
+/* OPTIONS */
+
+.options{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.option{
+padding:14px;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+background:#1e293b;
+color:white;
+transition:0.2s;
+}
+
+.option:hover{
+background:#334155;
+}
+
+.correct{
+background:#22c55e !important;
+}
+
+.wrong{
+background:#ef4444 !important;
+}
+
+/* NEXT BUTTON */
+
+#nextBtn{
+margin-top:25px;
+padding:12px 22px;
+font-size:18px;
+border:none;
+background:#38bdf8;
+color:#020617;
+border-radius:8px;
+cursor:pointer;
+display:none;
+}
+
+/* RESULT */
+
+.result{
+font-size:26px;
+margin-top:30px;
+}
+
+/* HOME */
+
+.home-btn{
+display:inline-block;
+margin-top:30px;
+padding:12px 20px;
+background:#38bdf8;
+color:#020617;
+text-decoration:none;
+border-radius:8px;
+}
+
+</style>
 </head>
+
 <body>
 
 <header>
-  Cashibra — Demo Battle Area
+Cashibra ⚔ Boss Battle
 </header>
 
-<div class="boss-box">
-  <h2 id="questionText">Loading question...</h2>
+<div class="battle-area">
 
-  <div class="options">
-    <button class="option" onclick="checkAnswer(0)" id="opt0">Option 1</button>
-    <button class="option" onclick="checkAnswer(1)" id="opt1">Option 2</button>
-    <button class="option" onclick="checkAnswer(2)" id="opt2">Option 3</button>
-  </div>
+<!-- PLAYER HP -->
 
-  <button id="nextBtn" onclick="nextQuestion()">Next Question</button>
+<div class="hp-container player">
+<div class="hp-label">🧑 Player HP</div>
+<div class="hp-bar">
+<div class="hp-fill" id="playerHP"></div>
+</div>
 </div>
 
-<a href="index.html" class="home-btn">⬅ Back To Home</a>
+<!-- BOSS HP -->
+
+<div class="hp-container">
+<div class="hp-label">👹 Boss HP</div>
+<div class="hp-bar">
+<div class="hp-fill" id="bossHP"></div>
+</div>
+</div>
+
+<div class="boss">
+Inflation Monster 👹
+</div>
+
+<div class="question" id="questionText"></div>
+
+<div class="options">
+<button class="option" onclick="answer(0)" id="opt0"></button>
+<button class="option" onclick="answer(1)" id="opt1"></button>
+<button class="option" onclick="answer(2)" id="opt2"></button>
+</div>
+
+<button id="nextBtn" onclick="nextQuestion()">Next Attack</button>
+
+<div class="result" id="result"></div>
+
+<a href="index.html" class="home-btn">⬅ Back Home</a>
+
+</div>
 
 <script>
-  const questions = [
-    { q: "What is the fastest way to earn money online?", o: ["Scams", "Hard work & skills", "Nothing"], c: 1 },
-    { q: "Best age to start learning money skills?", o: ["18", "21", "Any age"], c: 2 },
-    { q: "What does credit score measure?", o: ["Trustworthiness", "Height", "Age"], c: 0 },
-    { q: "What is safer?", o: ["Random apps", "Trusted websites", "Unknown links"], c: 1 },
-    { q: "What is not a job?", o: ["Freelancing", "Sleeping", "Business"], c: 1 },
-    { q: "Which is better for teens?", o: ["Skill building", "Time waste", "Scams"], c: 0 },
-    { q: "What is investment?", o: ["Putting money to grow", "Shopping", "Losing cash"], c: 0 },
-    { q: "Best tool to learn?", o: ["YouTube", "Nothing", "Gambling"], c: 0 },
-    { q: "Which is risky?", o: ["Gambling", "Studying", "Saving"], c: 0 },
-    { q: "How to avoid scams?", o: ["Click everything", "Verify sources", "Trust strangers"], c: 1 }
-  ];
 
-  let current = 0;
+const questions=[
+{q:"What is inflation?",o:["Prices rising","Free money","Lower prices"],c:0},
+{q:"Best habit for money?",o:["Saving","Gambling","Spending"],c:0},
+{q:"What grows money?",o:["Investing","Shopping","Gaming"],c:0},
+{q:"What is a credit score?",o:["Trust score","Height","Age"],c:0},
+{q:"Safe investment?",o:["Index funds","Scams","Random coins"],c:0}
+];
 
-  function loadQuestion() {
-    const q = questions[current];
-    document.getElementById("questionText").innerText = q.q;
-    document.getElementById("opt0").innerText = q.o[0];
-    document.getElementById("opt1").innerText = q.o[1];
-    document.getElementById("opt2").innerText = q.o[2];
+let current=0;
 
-    document.querySelectorAll(".option").forEach(btn => {
-      btn.classList.remove("correct", "wrong");
-      btn.disabled = false;
-    });
+let bossHP=100;
+let playerHP=100;
 
-    document.getElementById("nextBtn").style.display = "none";
-  }
+function updateHP(){
+document.getElementById("bossHP").style.width=bossHP+"%";
+document.getElementById("playerHP").style.width=playerHP+"%";
+}
 
-  function checkAnswer(selected) {
-    const q = questions[current];
-    const correct = q.c;
+function loadQuestion(){
 
-    document.querySelectorAll(".option").forEach((btn, idx) => {
-      btn.disabled = true;
-      if (idx === correct) btn.classList.add("correct");
-      else if (idx === selected) btn.classList.add("wrong");
-    });
+let q=questions[current];
 
-    document.getElementById("nextBtn").style.display = "block";
-  }
+document.getElementById("questionText").innerText=q.q;
 
-  function nextQuestion() {
-    current++;
-    if (current >= questions.length) {
-      document.getElementById("questionText").innerText = "🎉 You defeated the boss!";
-      document.querySelectorAll(".option").forEach(btn => btn.style.display = "none");
-      document.getElementById("nextBtn").style.display = "none";
-      return;
-    }
-    loadQuestion();
-  }
+document.getElementById("opt0").innerText=q.o[0];
+document.getElementById("opt1").innerText=q.o[1];
+document.getElementById("opt2").innerText=q.o[2];
 
-  loadQuestion();
+document.querySelectorAll(".option").forEach(b=>{
+b.disabled=false;
+b.classList.remove("correct","wrong");
+});
+
+document.getElementById("nextBtn").style.display="none";
+
+}
+
+function answer(choice){
+
+let q=questions[current];
+
+document.querySelectorAll(".option").forEach(b=>b.disabled=true);
+
+if(choice===q.c){
+
+bossHP-=20;
+
+document.getElementById("opt"+choice).classList.add("correct");
+
+}else{
+
+playerHP-=20;
+
+document.getElementById("opt"+choice).classList.add("wrong");
+document.getElementById("opt"+q.c).classList.add("correct");
+
+}
+
+updateHP();
+
+if(bossHP<=0){
+
+document.getElementById("result").innerText="🏆 You defeated the boss!";
+document.querySelector(".options").style.display="none";
+return;
+
+}
+
+if(playerHP<=0){
+
+document.getElementById("result").innerText="💀 You lost the battle!";
+document.querySelector(".options").style.display="none";
+return;
+
+}
+
+document.getElementById("nextBtn").style.display="inline-block";
+
+}
+
+function nextQuestion(){
+
+current++;
+
+if(current>=questions.length){
+current=0;
+}
+
+loadQuestion();
+
+}
+
+updateHP();
+loadQuestion();
+
 </script>
 
 </body>
 </html>
+```
