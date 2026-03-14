@@ -1,127 +1,265 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Cashibra — FAQ</title>
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f0f4ff;
-    margin: 0;
-    color: #000;
-  }
 
-  header {
-    background: #0b3d91;
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-  }
+body{
+font-family:Arial;
+background:#0f172a;
+margin:0;
+color:white;
+}
 
-  .faq-container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-  }
+/* HEADER */
 
-  .faq-box {
-    background: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    cursor: pointer;
-    transition: 0.3s;
-  }
+header{
+background:#020617;
+padding:20px;
+font-size:26px;
+font-weight:bold;
+text-align:center;
+border-bottom:2px solid #1e293b;
+}
 
-  .faq-box:hover {
-    transform: scale(1.02);
-  }
+nav a{
+color:white;
+margin:0 10px;
+text-decoration:none;
+font-size:15px;
+}
 
-  .faq-question {
-    font-size: 20px;
-    font-weight: bold;
-    color: #0b3d91;
-  }
+nav a:hover{
+color:#38bdf8;
+}
 
-  .faq-answer {
-    margin-top: 10px;
-    font-size: 16px;
-    line-height: 1.6;
-    display: none;
-  }
+/* TITLE */
 
-  a.home-btn {
-    display: block;
-    width: 200px;
-    margin: 40px auto;
-    text-align: center;
-    padding: 12px 20px;
-    background: #0b3d91;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    font-weight: 600;
-  }
+.title{
+text-align:center;
+margin-top:40px;
+font-size:32px;
+}
+
+/* SEARCH BAR */
+
+.search-box{
+text-align:center;
+margin:25px;
+}
+
+.search-box input{
+padding:12px;
+width:300px;
+max-width:90%;
+border-radius:8px;
+border:none;
+font-size:16px;
+}
+
+/* FAQ AREA */
+
+.faq-container{
+max-width:800px;
+margin:auto;
+padding:20px;
+}
+
+/* FAQ BOX */
+
+.faq-box{
+background:#1e293b;
+padding:20px;
+margin-bottom:15px;
+border-radius:10px;
+cursor:pointer;
+transition:0.25s;
+border:1px solid #334155;
+}
+
+.faq-box:hover{
+transform:scale(1.02);
+}
+
+/* QUESTION */
+
+.faq-question{
+font-size:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+/* PLUS ICON */
+
+.icon{
+font-size:20px;
+}
+
+/* ANSWER */
+
+.faq-answer{
+max-height:0;
+overflow:hidden;
+transition:0.35s ease;
+font-size:15px;
+color:#cbd5f5;
+margin-top:10px;
+}
+
+/* OPEN STATE */
+
+.faq-box.active .faq-answer{
+max-height:200px;
+}
+
+/* COIN TIP */
+
+.tip{
+text-align:center;
+margin-top:40px;
+font-size:15px;
+color:#38bdf8;
+}
+
+/* HOME BUTTON */
+
+.home-btn{
+display:block;
+width:200px;
+margin:40px auto;
+text-align:center;
+padding:12px;
+background:#38bdf8;
+color:#020617;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-  Cashibra — Home
-  <nav style="margin-top:10px;">
-    <a href="index.html" style="color:white; margin:0 10px;">Home</a>
-    <a href="about.html" style="color:white; margin:0 10px;">About</a>
-    <a href="bossbattle.html" style="color:white; margin:0 10px;">Boss Battle</a>
-    <a href="faq.html" style="color:white; margin:0 10px;">FAQ</a>
-    <a href="Learn.html" style="color:white; margin:0 10px;">Start Learning(demo) </a>
- </nav>
+Cashibra
+
+<nav style="margin-top:10px;">
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="bossbattle.html">Boss Battle</a>
+<a href="faq.html">FAQ</a>
+<a href="Learn.html">Start Learning</a>
+</nav>
+
 </header>
 
+<div class="title">
+Frequently Asked Questions
+</div>
 
-<div class="faq-container">
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Search question...">
+</div>
 
-  <div class="faq-box" onclick="toggleFAQ(this)">
-    <div class="faq-question">What is Cashibra?</div>
-    <div class="faq-answer">Cashibra is a fun learning project where kids and teens learn money, skills, and financial basics through games and challenges.</div>
-  </div>
+<div class="faq-container" id="faqContainer">
 
-  <div class="faq-box" onclick="toggleFAQ(this)">
-    <div class="faq-question">Is this website real or still in development?</div>
-    <div class="faq-answer">This is a demo/testing version. More features like battles, points, and missions will be added later.</div>
-  </div>
+<div class="faq-box">
+<div class="faq-question">
+What is Cashibra?
+<span class="icon">+</span>
+</div>
+<div class="faq-answer">
+Cashibra is a gamified learning project where teens learn money, skills, and financial basics through games, quests, and boss battles.
+</div>
+</div>
 
-  <div class="faq-box" onclick="toggleFAQ(this)">
-    <div class="faq-question">Is Cashibra safe?</div>
-    <div class="faq-answer">Yes, the website does not collect any sensitive data. Everything here is only for education and testing.</div>
-  </div>
+<div class="faq-box">
+<div class="faq-question">
+Is this website finished?
+<span class="icon">+</span>
+</div>
+<div class="faq-answer">
+No. This is an early demo. Many features like missions, coins, streaks, and learning levels will be added later.
+</div>
+</div>
 
-  <div class="faq-box" onclick="toggleFAQ(this)">
-    <div class="faq-question">Will I really earn money?</div>
-    <div class="faq-answer">No real money is given. This is a learning and demo website to teach financial skills in a fun way.</div>
-  </div>
+<div class="faq-box">
+<div class="faq-question">
+Is Cashibra safe?
+<span class="icon">+</span>
+</div>
+<div class="faq-answer">
+Yes. Cashibra does not collect sensitive personal data. It is purely an educational experiment.
+</div>
+</div>
 
-  <div class="faq-box" onclick="toggleFAQ(this)">
-    <div class="faq-question">Who is the creator?</div>
-    <div class="faq-answer">Cashibra was created by a 12 year old learner (Aarav Mahule) who wanted to teach financial skills to other teens.</div>
-  </div>
+<div class="faq-box">
+<div class="faq-question">
+Will I earn real money?
+<span class="icon">+</span>
+</div>
+<div class="faq-answer">
+No. The goal is to teach financial thinking and skills through interactive learning.
+</div>
+</div>
 
+<div class="faq-box">
+<div class="faq-question">
+Who made Cashibra?
+<span class="icon">+</span>
+</div>
+<div class="faq-answer">
+Cashibra was created by Aarav Mahule, a young learner experimenting with teaching finance through games.
+</div>
+</div>
+
+</div>
+
+<div class="tip">
+💡 Tip: Explore lessons and boss battles to unlock coins in the future.
 </div>
 
 <a class="home-btn" href="index.html">⬅ Back To Home</a>
 
 <script>
-function toggleFAQ(box) {
-  const answer = box.querySelector('.faq-answer');
-  const isOpen = answer.style.display === "block";
-  answer.style.display = isOpen ? "none" : "block";
-}
+
+/* OPEN CLOSE FAQ */
+
+document.querySelectorAll(".faq-box").forEach(box=>{
+box.addEventListener("click",()=>{
+
+box.classList.toggle("active")
+
+})
+})
+
+/* SEARCH */
+
+document.getElementById("searchInput").addEventListener("keyup",function(){
+
+let filter=this.value.toLowerCase()
+let boxes=document.querySelectorAll(".faq-box")
+
+boxes.forEach(box=>{
+
+let text=box.innerText.toLowerCase()
+
+box.style.display=text.includes(filter)?"block":"none"
+
+})
+
+})
+
 </script>
 
 </body>
 </html>
+```
