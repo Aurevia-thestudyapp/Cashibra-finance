@@ -1,13 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>About Cashibra</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -15,12 +13,13 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+font-family:Poppins,sans-serif;
 }
 
 body{
-background:#0f172a;
+background:linear-gradient(135deg,#ff7a00,#ffb347);
 color:white;
+overflow-x:hidden;
 }
 
 /* HEADER */
@@ -29,150 +28,195 @@ header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:18px 40px;
-background:#020617;
-border-bottom:1px solid #1e293b;
+padding:15px 25px;
+background:rgba(0,0,0,0.25);
+backdrop-filter:blur(10px);
 position:sticky;
 top:0;
 z-index:1000;
 }
 
 .logo{
-font-size:24px;
-font-weight:700;
-color:#38bdf8;
+font-weight:800;
+font-size:20px;
 }
 
 nav a{
 color:white;
 text-decoration:none;
-margin-left:25px;
+margin-left:20px;
 font-weight:600;
-opacity:.8;
-}
-
-nav a:hover{
-opacity:1;
-color:#38bdf8;
 }
 
 /* HERO */
 
 .hero{
 text-align:center;
-padding:100px 20px 60px 20px;
-max-width:1000px;
-margin:auto;
+padding:100px 20px 60px;
 }
 
 .hero h1{
-font-size:48px;
-margin-bottom:20px;
+font-size:45px;
+animation:fadeUp 1s ease;
 }
 
 .hero p{
-font-size:20px;
-opacity:.8;
-}
-
-/* STORY */
-
-.story{
-max-width:1000px;
-margin:60px auto;
-padding:0 20px;
-line-height:1.8;
-font-size:18px;
+margin-top:10px;
 opacity:.9;
 }
 
-.story h2{
-margin-bottom:15px;
-color:#38bdf8;
+@keyframes fadeUp{
+from{opacity:0; transform:translateY(40px);}
+to{opacity:1; transform:translateY(0);}
 }
 
-/* MISSION CARDS */
+/* 🌱 JOURNEY SECTION */
 
-.cards{
-max-width:1100px;
-margin:60px auto;
-padding:20px;
+.journey{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+position:relative;
+}
+
+/* SCENE */
+
+.scene{
+position:relative;
+width:90%;
+height:250px;
+margin-bottom:30px;
+}
+
+/* SUN */
+
+.sun{
+position:absolute;
+top:10px;
+right:40px;
+width:60px;
+height:60px;
+background:#fff;
+border-radius:50%;
+box-shadow:0 0 30px #fff;
+animation:pulse 3s infinite;
+}
+
+@keyframes pulse{
+50%{transform:scale(1.2);}
+}
+
+/* PATH */
+
+.path{
+position:absolute;
+bottom:0;
+width:100%;
+height:80px;
+background:white;
+opacity:0.2;
+border-radius:50px;
+}
+
+/* PLANTS */
+
+.plant{
+position:absolute;
+bottom:70px;
+width:20px;
+background:limegreen;
+border-radius:10px;
+animation:grow 3s infinite alternate;
+}
+
+.plant1{left:15%;}
+.plant2{left:45%;}
+.plant3{left:75%;}
+
+@keyframes grow{
+from{height:20px;}
+to{height:70px;}
+}
+
+/* PERSON */
+
+.person{
+position:absolute;
+bottom:80px;
+font-size:35px;
+animation:walk 8s linear infinite;
+}
+
+@keyframes walk{
+0%{left:-10%;}
+100%{left:100%;}
+}
+
+/* STORY TEXT */
+
+.story-text{
+text-align:center;
+}
+
+.line{
+margin:10px;
+padding:10px 20px;
+border-radius:30px;
+border:2px solid white;
+background:rgba(255,255,255,0.15);
+font-weight:600;
+animation:wiggle 3s infinite;
+}
+
+@keyframes wiggle{
+0%{transform:rotate(-2deg);}
+50%{transform:rotate(2deg);}
+100%{transform:rotate(-2deg);}
+}
+
+/* FEATURES */
+
+.features{
+max-width:1000px;
+margin:80px auto;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:25px;
+gap:20px;
+padding:20px;
 }
 
 .card{
-background:#020617;
-padding:30px;
-border-radius:16px;
-border:1px solid #1e293b;
+background:rgba(255,255,255,0.15);
+padding:25px;
+border-radius:20px;
 transition:.3s;
-text-align:center;
 }
 
 .card:hover{
-transform:translateY(-6px);
-border-color:#38bdf8;
+transform:translateY(-10px);
 }
 
-.card h3{
-margin-bottom:10px;
-}
-
-/* CTA SECTION */
+/* CTA */
 
 .cta{
-max-width:1000px;
-margin:80px auto;
 text-align:center;
-padding:20px;
-}
-
-.cta h2{
-margin-bottom:25px;
-}
-
-.cta a{
-text-decoration:none;
-margin:10px;
+margin:60px;
 }
 
 .cta button{
 padding:14px 30px;
 border:none;
-border-radius:10px;
-font-weight:600;
+border-radius:30px;
+background:white;
+color:#ff7a00;
+font-weight:700;
 cursor:pointer;
-font-size:16px;
-background:#38bdf8;
-color:#020617;
 }
 
 .cta button:hover{
-transform:scale(1.05);
-}
-
-/* FOOTER */
-
-footer{
-text-align:center;
-padding:40px;
-opacity:.6;
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-.hero h1{
-font-size:34px;
-}
-
-.hero p{
-font-size:16px;
-}
-
+transform:scale(1.1);
 }
 
 </style>
@@ -181,9 +225,7 @@ font-size:16px;
 <body>
 
 <header>
-
-<div class="logo">Cashibra</div>
-
+<div class="logo">🐦 Cashibra</div>
 <nav>
 <a href="index.html">Home</a>
 <a href="about.html">About</a>
@@ -191,82 +233,78 @@ font-size:16px;
 <a href="faq.html">FAQ</a>
 <a href="learn.html">Start Learning</a>
 </nav>
-
 </header>
 
+<!-- HERO -->
 
 <section class="hero">
-
 <h1>Why Cashibra Exists</h1>
-
-<p>A platform where money skills are learned like a game.</p>
-
+<p>Because nobody teaches money the right way.</p>
 </section>
 
+<!-- 🌱 STORY ANIMATION -->
 
-<section class="story">
+<section class="journey">
 
-<h2>The Beginning</h2>
+<div class="scene">
 
-<p>
-I started Cashibra when I noticed something strange: nobody was really teaching kids how money works.
-Schools teach math and science, but almost nothing about saving, investing, credit, or taxes.
-</p>
+<div class="sun"></div>
+<div class="path"></div>
 
-<p>
-So I decided to build something different — a place where learning finance feels like playing a game.
-Instead of boring lessons, Cashibra turns money knowledge into quests, boss fights, and challenges.
-</p>
+<div class="plant plant1"></div>
+<div class="plant plant2"></div>
+<div class="plant plant3"></div>
 
-</section>
+<div class="person">🚶</div>
 
-
-<section class="cards">
-
-<div class="card">
-<h3>💰 Learn Real Money Skills</h3>
-<p>Understand saving, investing, inflation and financial habits early.</p>
 </div>
 
-<div class="card">
-<h3>🎮 Game-Style Learning</h3>
-<p>Lessons become quests, quizzes become boss fights.</p>
-</div>
-
-<div class="card">
-<h3>🪙 Earn Rewards</h3>
-<p>Earn coins, unlock achievements, and track your progress.</p>
-</div>
-
-<div class="card">
-<h3>🚀 Build Smart Habits</h3>
-<p>The goal is to build real financial thinking before adulthood.</p>
+<div class="story-text">
+<p class="line">🌱 Start with no knowledge</p>
+<p class="line">📚 Learn real money skills</p>
+<p class="line">💰 Build smart habits</p>
+<p class="line">🚀 Reach financial freedom</p>
 </div>
 
 </section>
 
+<!-- FEATURES -->
+
+<section class="features">
+
+<div class="card">
+<h3>💰 Real Skills</h3>
+<p>Learn saving, investing, and money thinking.</p>
+</div>
+
+<div class="card">
+<h3>🎮 Game System</h3>
+<p>Quests, battles, and challenges.</p>
+</div>
+
+<div class="card">
+<h3>🪙 Rewards</h3>
+<p>Earn coins and level up.</p>
+</div>
+
+<div class="card">
+<h3>🚀 Future Ready</h3>
+<p>Be smarter before adulthood.</p>
+</div>
+
+</section>
+
+<!-- CTA -->
 
 <section class="cta">
 
-<h2>Start Your Cashibra Journey</h2>
+<h2>Start Your Journey</h2>
 
 <a href="learn.html">
-<button>Start Learning</button>
-</a>
-
-<a href="bossbattle.html">
-<button>Boss Battles</button>
+<button>Enter Cashibra</button>
 </a>
 
 </section>
 
-
-<footer>
-
-© 2025 Cashibra
-
-</footer>
-
 </body>
 </html>
-```
