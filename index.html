@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cashibra</title>
+<title>Cashibra Game</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -13,174 +13,126 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Poppins,sans-serif;
+font-family:'Fredoka',sans-serif;
 }
 
 body{
-background:#0f172a;
-color:white;
+background:linear-gradient(180deg,#60a5fa,#38bdf8);
+color:#022c43;
 }
 
-/* HEADER */
+/* TOP BAR */
 
-header{
+.topbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:20px 40px;
-background:#020617;
-border-bottom:1px solid #1e293b;
-position:sticky;
-top:0;
-z-index:1000;
+padding:15px 20px;
+background:white;
+border-bottom:4px solid #38bdf8;
 }
 
 .logo{
-font-size:24px;
-font-weight:700;
-color:#38bdf8;
-}
-
-nav a{
-color:white;
-text-decoration:none;
-margin-left:25px;
+font-size:22px;
 font-weight:600;
-opacity:.8;
 }
 
-nav a:hover{
-opacity:1;
-color:#38bdf8;
+.stats{
+display:flex;
+gap:10px;
+}
+
+.stat{
+background:#f0f9ff;
+padding:8px 14px;
+border-radius:20px;
+font-weight:600;
 }
 
 /* HERO */
 
 .hero{
-padding:100px 20px;
 text-align:center;
-background:linear-gradient(180deg,#020617,#0f172a);
+padding:40px 20px;
 }
 
 .hero h1{
-font-size:50px;
-margin-bottom:20px;
-}
-
-.hero p{
-font-size:20px;
-opacity:.8;
-margin-bottom:30px;
-}
-
-.hero button{
-padding:14px 28px;
-border:none;
-background:#38bdf8;
-color:#020617;
-font-size:18px;
-font-weight:700;
-border-radius:10px;
-cursor:pointer;
-}
-
-.hero button:hover{
-transform:scale(1.05);
-}
-
-/* GAME DASHBOARD */
-
-.dashboard{
-max-width:1200px;
-margin:auto;
-padding:50px 20px;
-}
-
-.dashboard h2{
-font-size:32px;
-margin-bottom:30px;
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-}
-
-.card{
-background:#020617;
-padding:30px;
-border-radius:16px;
-border:1px solid #1e293b;
-transition:.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
-border-color:#38bdf8;
-}
-
-.card h3{
+font-size:28px;
 margin-bottom:10px;
 }
 
-.card p{
-opacity:.8;
-margin-bottom:15px;
+.hero p{
+font-size:16px;
+opacity:.7;
 }
 
-.card a{
-text-decoration:none;
-color:#38bdf8;
+/* GAME BUTTONS */
+
+.menu{
+padding:20px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+max-width:500px;
+margin:auto;
+}
+
+.btn{
+background:white;
+padding:20px;
+border-radius:18px;
+text-align:center;
+font-size:18px;
 font-weight:600;
+box-shadow:0 6px 0 #bae6fd;
+cursor:pointer;
+transition:.2s;
 }
 
-/* QUEST BOARD */
+.btn:active{
+transform:translateY(4px);
+box-shadow:0 2px 0 #bae6fd;
+}
 
-.quest-board{
-max-width:1200px;
-margin:60px auto;
+/* QUESTS */
+
+.quests{
+margin-top:30px;
 padding:20px;
 }
 
 .quest{
-background:#020617;
-border:1px solid #1e293b;
-padding:20px;
-border-radius:12px;
-margin-bottom:15px;
+background:white;
+padding:15px;
+border-radius:15px;
+margin-bottom:10px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 }
 
 .quest button{
-background:#38bdf8;
+background:#22c55e;
+color:white;
 border:none;
-padding:8px 16px;
-border-radius:8px;
-cursor:pointer;
+padding:6px 12px;
+border-radius:10px;
 font-weight:600;
 }
 
-/* COINS */
+/* TOAST */
 
-.coin-box{
+#toast{
 position:fixed;
-top:20px;
-right:20px;
-background:#020617;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:#22c55e;
+color:white;
 padding:10px 20px;
 border-radius:10px;
-border:1px solid #1e293b;
-}
-
-/* FOOTER */
-
-footer{
-text-align:center;
-padding:40px;
-opacity:.6;
+display:none;
+font-weight:600;
 }
 
 </style>
@@ -188,163 +140,108 @@ opacity:.6;
 
 <body>
 
-<header>
+<!-- TOP BAR -->
 
-<div class="logo">Cashibra</div>
+<div class="topbar">
 
-<nav>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="bossbattle.html">Boss Battle</a>
-<a href="faq.html">FAQ</a>
-<a href="learn.html">Start Learning</a>
-</nav>
+<div class="logo">💰 Cashibra</div>
 
-</header>
-
-<div class="coin-box">
-🪙 Coins: <span id="coins">0</span>
-</div>
-
-<section class="hero">
-
-<h1>Level Up Your Money Skills</h1>
-
-<p>Learn finance through quests, games, and boss battles.</p>
-
-<a href="learn.html">
-<button>Start Learning</button>
-</a>
-
-</section>
-
-<section class="dashboard">
-
-<h2>Game Hub</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>📚 Lessons</h3>
-<p>Learn saving, investing, and money psychology.</p>
-<a href="learn.html">Enter</a>
-</div>
-
-<div class="card">
-<h3>⚔ Boss Battle</h3>
-<p>Fight finance bosses like Debt Dragon.</p>
-<a href="bossbattle.html">Fight</a>
-</div>
-
-<div class="card">
-<h3>🎥 YouTube</h3>
-<p>Watch finance explained simply.</p>
-<a href="https://www.youtube.com/@Official_Cashibra" target="_blank">Watch</a>
-</div>
-
-<div class="card">
-<h3>❓ FAQ</h3>
-<p>Questions about money and investing.</p>
-<a href="faq.html">Open</a>
+<div class="stats">
+<div class="stat">🪙 <span id="coins">0</span></div>
+<div class="stat">🔥 <span id="streak">0</span></div>
+<div class="stat">⭐ <span id="level">1</span></div>
 </div>
 
 </div>
 
-</section>
+<!-- HERO -->
 
-<section class="quest-board">
+<div class="hero">
+<h1>Level Up Your Money Skills 🎮</h1>
+<p>Play. Learn. Earn Coins.</p>
+</div>
 
-<h2>Daily Quests</h2>
+<!-- MENU -->
+
+<div class="menu">
+
+<div class="btn" onclick="location.href='bossbattle.html'">
+⚔️ Battle
+</div>
+
+<div class="btn" onclick="location.href='learn.html'">
+📚 Learn
+</div>
+
+<div class="btn">
+🧠 Skills
+</div>
+
+<div class="btn">
+🛒 Shop
+</div>
+
+</div>
+
+<!-- QUESTS -->
+
+<div class="quests">
+
+<h3>🎯 Daily Quests</h3>
 
 <div class="quest">
-<span>📚 Complete 1 Lesson</span>
-<button onclick="reward(5)">Claim</button>
-</div>
-
-<div class="quest">
-<span>⚔ Beat a Boss</span>
+<span>Win a battle (+10)</span>
 <button onclick="reward(10)">Claim</button>
 </div>
 
 <div class="quest">
-<span>🎥 Watch a Finance Video</span>
+<span>Learn something (+5)</span>
 <button onclick="reward(5)">Claim</button>
 </div>
 
-</section>
+<div class="quest">
+<span>Come back tomorrow 🔒</span>
+<button disabled>Locked</button>
+</div>
 
-<footer>
+</div>
 
-© Cashibra  
-<br>
-<a href="https://www.youtube.com/@Official_Cashibra" target="_blank">Visit our Channel</a>
+<!-- TOAST -->
 
-</footer>
+<div id="toast">+5 Coins</div>
 
-<!-- FIREBASE -->
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<!-- KEEP YOUR FIREBASE SCRIPT SAME BELOW -->
 
 <script>
 
-const firebaseConfig={
-apiKey:"AIzaSyDHLx6n2HxIiJwhCtX2NGLNQSQa176tAGY",
-authDomain:"cashibra-7925a.firebaseapp.com",
-projectId:"cashibra-7925a",
-storageBucket:"cashibra-7925a.firebasestorage.app",
-messagingSenderId:"1001418884693",
-appId:"1:1001418884693:web:0438b245f5a6b837abf6dc"
-};
+// STREAK + LEVEL
 
-firebase.initializeApp(firebaseConfig);
-const db=firebase.firestore();
-
-async function giveDailyCoins(userId){
-
-const ref=db.collection("users").doc(userId);
-const doc=await ref.get();
-
-if(!doc.exists){
-await ref.set({coins:5,lastClaim:Date.now()});
-return 5;
+function updateLevel(coins){
+let level=Math.floor(coins/50)+1;
+document.getElementById("level").innerText=level;
 }
 
-const data=doc.data();
-const last=data.lastClaim||0;
+function updateStreak(){
+let last=localStorage.getItem("lastVisit");
+let today=new Date().toDateString();
+let streak=localStorage.getItem("streak")||0;
 
-if(Date.now()-last>86400000){
-
-const newCoins=data.coins+5;
-
-await ref.update({
-coins:newCoins,
-lastClaim:Date.now()
-});
-
-return newCoins;
+if(last!==today){
+streak=parseInt(streak)+1;
+localStorage.setItem("streak",streak);
+localStorage.setItem("lastVisit",today);
 }
 
-return data.coins;
+document.getElementById("streak").innerText=streak;
 }
 
-giveDailyCoins("player1").then(c=>{
-document.getElementById("coins").innerText=c;
-});
+// TOAST
 
-function reward(amount){
-
-const ref=db.collection("users").doc("player1");
-
-ref.get().then(doc=>{
-let coins=doc.data().coins+amount;
-
-ref.update({coins:coins});
-
-document.getElementById("coins").innerText=coins;
-
-});
-
+function showToast(text){
+let t=document.getElementById("toast");
+t.innerText=text;
+t.style.display="block";
+setTimeout(()=>t.style.display="none",2000);
 }
 
 </script>
