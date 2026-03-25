@@ -22,6 +22,38 @@ color:white;
 overflow-x:hidden;
 }
 
+/* HEADER */
+
+header{
+position:sticky;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 25px;
+background:rgba(0,0,0,0.25);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+
+.logo{
+font-weight:800;
+font-size:20px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+font-weight:600;
+transition:.3s;
+}
+
+nav a:hover{
+opacity:.7;
+}
+
 /* WIGGLY BG */
 
 body::before{
@@ -43,7 +75,7 @@ z-index:0;
 100%{transform:rotate(360deg);}
 }
 
-/* GENERAL */
+/* SECTIONS */
 
 .section{
 position:relative;
@@ -122,15 +154,13 @@ transform:translateY(-10px) scale(1.03);
 margin-bottom:10px;
 }
 
-/* BIG SECTION */
+/* TEXT */
 
 .big-text{
 font-size:32px;
 font-weight:700;
 margin-bottom:20px;
 }
-
-/* CTA */
 
 .cta{
 font-size:28px;
@@ -149,6 +179,21 @@ opacity:.8;
 </head>
 
 <body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">🐦 Cashibra</div>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="learn.html">Learn</a>
+<a href="bossbattle.html">Boss Battle</a>
+<a href="faq.html">FAQ</a>
+</nav>
+
+</header>
 
 <!-- HERO -->
 
@@ -179,12 +224,12 @@ opacity:.8;
 
 <div class="card">
 <h3>🪙 Earn Coins</h3>
-<p>Complete missions, quizzes, and earn rewards daily.</p>
+<p>Complete missions and earn rewards daily.</p>
 </div>
 
 <div class="card">
 <h3>🎯 Set Goals</h3>
-<p>Track your savings and unlock achievements.</p>
+<p>Track progress and unlock achievements.</p>
 </div>
 
 </div>
@@ -199,18 +244,6 @@ opacity:.8;
 
 <p style="max-width:600px;margin:auto;opacity:.9;">
 Start learning → Complete missions → Earn coins → Unlock skills → Repeat daily.
-</p>
-
-</div>
-
-<!-- GAME FEEL -->
-
-<div class="section">
-
-<div class="big-text">Not a boring app.</div>
-
-<p style="opacity:.9;">
-This is your money game. Level up your brain, not just your score.
 </p>
 
 </div>
