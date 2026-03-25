@@ -17,7 +17,7 @@ font-family:Poppins,sans-serif;
 }
 
 body{
-background:linear-gradient(135deg,#ff7a00,#ffb347);
+background:#0f172a;
 color:white;
 overflow-x:hidden;
 }
@@ -29,7 +29,7 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding:15px 25px;
-background:rgba(0,0,0,0.25);
+background:rgba(0,0,0,0.5);
 backdrop-filter:blur(10px);
 position:sticky;
 top:0;
@@ -38,7 +38,7 @@ z-index:1000;
 
 .logo{
 font-weight:800;
-font-size:20px;
+color:#ff7a00;
 }
 
 nav a{
@@ -46,177 +46,239 @@ color:white;
 text-decoration:none;
 margin-left:20px;
 font-weight:600;
+opacity:.8;
+}
+
+nav a:hover{
+opacity:1;
+color:#ff7a00;
 }
 
 /* HERO */
 
 .hero{
+height:90vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 text-align:center;
-padding:100px 20px 60px;
+background:linear-gradient(180deg,#020617,#0f172a);
 }
 
 .hero h1{
-font-size:45px;
+font-size:52px;
+margin-bottom:20px;
 animation:fadeUp 1s ease;
 }
 
 .hero p{
-margin-top:10px;
-opacity:.9;
+opacity:.7;
+font-size:18px;
 }
 
-@keyframes fadeUp{
-from{opacity:0; transform:translateY(40px);}
-to{opacity:1; transform:translateY(0);}
+/* SCROLL ANIMATION BASE */
+
+section{
+padding:80px 20px;
 }
 
 /* 🌱 JOURNEY SECTION */
 
 .journey{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
 position:relative;
+height:500px;
+overflow:hidden;
 }
 
-/* SCENE */
+/* BACKGROUND FLOW */
 
-.scene{
-position:relative;
-width:90%;
-height:250px;
-margin-bottom:30px;
-}
-
-/* SUN */
-
-.sun{
+.bg{
 position:absolute;
-top:10px;
-right:40px;
-width:60px;
-height:60px;
-background:#fff;
-border-radius:50%;
-box-shadow:0 0 30px #fff;
-animation:pulse 3s infinite;
+width:200%;
+height:100%;
+background:linear-gradient(270deg,#ff7a00,#ffb347,#ff7a00);
+animation:bgMove 12s linear infinite;
+opacity:.15;
 }
 
-@keyframes pulse{
-50%{transform:scale(1.2);}
+@keyframes bgMove{
+0%{transform:translateX(0);}
+100%{transform:translateX(-50%);}
 }
 
 /* PATH */
 
 .path{
 position:absolute;
-bottom:0;
+bottom:60px;
 width:100%;
 height:80px;
-background:white;
-opacity:0.2;
+background:rgba(255,255,255,0.1);
 border-radius:50px;
 }
 
-/* PLANTS */
+/* 🌿 ORGANIC PLANTS */
 
 .plant{
 position:absolute;
-bottom:70px;
-width:20px;
-background:limegreen;
+bottom:120px;
+width:6px;
+height:40px;
+background:#22c55e;
 border-radius:10px;
-animation:grow 3s infinite alternate;
+transform-origin:bottom;
+animation:sway 3s ease-in-out infinite;
 }
 
-.plant1{left:15%;}
-.plant2{left:45%;}
-.plant3{left:75%;}
-
-@keyframes grow{
-from{height:20px;}
-to{height:70px;}
-}
-
-/* PERSON */
-
-.person{
+.plant::after{
+content:"";
 position:absolute;
-bottom:80px;
-font-size:35px;
+width:20px;
+height:20px;
+background:#22c55e;
+border-radius:50%;
+top:-10px;
+left:-7px;
+}
+
+.plant1{left:20%;}
+.plant2{left:45%; animation-delay:.5s;}
+.plant3{left:70%; animation-delay:1s;}
+
+@keyframes sway{
+0%{transform:rotate(-6deg);}
+50%{transform:rotate(6deg);}
+100%{transform:rotate(-6deg);}
+}
+
+/* 🚶 CHARACTER */
+
+.character{
+position:absolute;
+bottom:90px;
+left:-60px;
+width:20px;
+height:40px;
 animation:walk 8s linear infinite;
 }
 
-@keyframes walk{
-0%{left:-10%;}
-100%{left:100%;}
+.character::before{
+content:"";
+position:absolute;
+width:15px;
+height:15px;
+background:white;
+border-radius:50%;
+top:-15px;
+left:2px;
 }
 
-/* STORY TEXT */
+.character::after{
+content:"";
+position:absolute;
+width:6px;
+height:30px;
+background:white;
+left:7px;
+}
 
-.story-text{
+/* WALK MOTION */
+
+@keyframes walk{
+0%{left:-60px;}
+50%{left:50%;}
+100%{left:110%;}
+}
+
+/* FLOATING TEXT */
+
+.journey-text{
+position:absolute;
+top:40px;
+width:100%;
 text-align:center;
 }
 
-.line{
+.journey-text span{
+display:inline-block;
 margin:10px;
 padding:10px 20px;
 border-radius:30px;
-border:2px solid white;
-background:rgba(255,255,255,0.15);
-font-weight:600;
-animation:wiggle 3s infinite;
+border:2px solid rgba(255,255,255,0.4);
+background:rgba(255,255,255,0.08);
+animation:floatText 4s ease-in-out infinite;
 }
 
-@keyframes wiggle{
-0%{transform:rotate(-2deg);}
-50%{transform:rotate(2deg);}
-100%{transform:rotate(-2deg);}
+.journey-text span:nth-child(2){animation-delay:.5s;}
+.journey-text span:nth-child(3){animation-delay:1s;}
+.journey-text span:nth-child(4){animation-delay:1.5s;}
+
+@keyframes floatText{
+0%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+100%{transform:translateY(0);}
 }
 
-/* FEATURES */
+/* STORY SECTION */
 
-.features{
-max-width:1000px;
-margin:80px auto;
+.story{
+max-width:900px;
+margin:auto;
+text-align:center;
+line-height:1.8;
+opacity:.85;
+}
+
+/* CARDS */
+
+.cards{
+max-width:1100px;
+margin:auto;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-padding:20px;
+gap:25px;
 }
 
 .card{
-background:rgba(255,255,255,0.15);
+background:#020617;
 padding:25px;
-border-radius:20px;
+border-radius:16px;
+border:1px solid #1e293b;
 transition:.3s;
 }
 
 .card:hover{
-transform:translateY(-10px);
+transform:translateY(-8px);
+border-color:#ff7a00;
 }
 
 /* CTA */
 
 .cta{
 text-align:center;
-margin:60px;
+margin-top:60px;
 }
 
 .cta button{
-padding:14px 30px;
+padding:14px 28px;
 border:none;
-border-radius:30px;
-background:white;
-color:#ff7a00;
+background:#ff7a00;
+color:white;
+border-radius:12px;
 font-weight:700;
 cursor:pointer;
 }
 
 .cta button:hover{
-transform:scale(1.1);
+transform:scale(1.05);
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+from{opacity:0; transform:translateY(40px);}
+to{opacity:1; transform:translateY(0);}
 }
 
 </style>
@@ -225,7 +287,7 @@ transform:scale(1.1);
 <body>
 
 <header>
-<div class="logo">🐦 Cashibra</div>
+<div class="logo">Cashibra</div>
 <nav>
 <a href="index.html">Home</a>
 <a href="about.html">About</a>
@@ -238,58 +300,68 @@ transform:scale(1.1);
 <!-- HERO -->
 
 <section class="hero">
-<h1>Why Cashibra Exists</h1>
-<p>Because nobody teaches money the right way.</p>
+<h1>Money Skills Should Feel Like a Game</h1>
+<p>Not boring. Not confusing. Just simple, fun, and powerful.</p>
 </section>
 
-<!-- 🌱 STORY ANIMATION -->
+<!-- 🌱 JOURNEY -->
 
 <section class="journey">
 
-<div class="scene">
+<div class="bg"></div>
 
-<div class="sun"></div>
+<div class="journey-text">
+<span>Start</span>
+<span>Learn</span>
+<span>Grow</span>
+<span>Win</span>
+</div>
+
 <div class="path"></div>
 
 <div class="plant plant1"></div>
 <div class="plant plant2"></div>
 <div class="plant plant3"></div>
 
-<div class="person">🚶</div>
+<div class="character"></div>
 
-</div>
+</section>
 
-<div class="story-text">
-<p class="line">🌱 Start with no knowledge</p>
-<p class="line">📚 Learn real money skills</p>
-<p class="line">💰 Build smart habits</p>
-<p class="line">🚀 Reach financial freedom</p>
-</div>
+<!-- STORY -->
+
+<section class="story">
+
+<h2>Why Cashibra Exists</h2>
+
+<p>
+Nobody teaches money properly. Not in school. Not in real life.
+So instead of waiting, we built a system where learning money feels like leveling up in a game.
+</p>
 
 </section>
 
 <!-- FEATURES -->
 
-<section class="features">
+<section class="cards">
 
 <div class="card">
 <h3>💰 Real Skills</h3>
-<p>Learn saving, investing, and money thinking.</p>
+<p>Saving, investing, and smart thinking.</p>
 </div>
 
 <div class="card">
-<h3>🎮 Game System</h3>
-<p>Quests, battles, and challenges.</p>
+<h3>🎮 Game Mechanics</h3>
+<p>Quests, battles, rewards.</p>
 </div>
 
 <div class="card">
-<h3>🪙 Rewards</h3>
-<p>Earn coins and level up.</p>
+<h3>🪙 Earn Coins</h3>
+<p>Progress like a real game.</p>
 </div>
 
 <div class="card">
 <h3>🚀 Future Ready</h3>
-<p>Be smarter before adulthood.</p>
+<p>Win before adulthood.</p>
 </div>
 
 </section>
