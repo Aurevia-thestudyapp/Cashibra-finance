@@ -9,37 +9,24 @@
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
-}
-
-body{
-background:#0f172a;
-color:white;
-overflow-x:hidden;
-}
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+body{background:#0f172a;color:white;overflow-x:hidden;}
 
 /* HEADER */
-
 header{
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:15px 25px;
-background:rgba(0,0,0,0.5);
-backdrop-filter:blur(10px);
+background:#020617;
+border-bottom:1px solid #1e293b;
 position:sticky;
 top:0;
 z-index:1000;
 }
 
-.logo{
-font-weight:800;
-color:#ff7a00;
-}
+.logo{font-weight:800;color:#ff7a00;}
 
 nav a{
 color:white;
@@ -49,27 +36,18 @@ font-weight:600;
 opacity:.8;
 }
 
-nav a:hover{
-opacity:1;
-color:#ff7a00;
-}
+nav a:hover{opacity:1;color:#ff7a00;}
 
 /* HERO */
 
 .hero{
-height:90vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
 text-align:center;
-background:linear-gradient(180deg,#020617,#0f172a);
+padding:100px 20px 60px;
 }
 
 .hero h1{
-font-size:52px;
-margin-bottom:20px;
-animation:fadeUp 1s ease;
+font-size:48px;
+margin-bottom:15px;
 }
 
 .hero p{
@@ -77,155 +55,55 @@ opacity:.7;
 font-size:18px;
 }
 
-/* SCROLL ANIMATION BASE */
+/* IMAGE SECTION */
 
-section{
-padding:80px 20px;
+.visual{
+max-width:1100px;
+margin:60px auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:50px;
+flex-wrap:wrap;
+padding:0 20px;
 }
 
-/* 🌱 JOURNEY SECTION */
-
-.journey{
-position:relative;
-height:500px;
-overflow:hidden;
+.visual img{
+width:420px;
+max-width:100%;
+border-radius:20px;
+box-shadow:0 20px 50px rgba(0,0,0,0.4);
+animation:float 5s ease-in-out infinite;
 }
 
-/* BACKGROUND FLOW */
-
-.bg{
-position:absolute;
-width:200%;
-height:100%;
-background:linear-gradient(270deg,#ff7a00,#ffb347,#ff7a00);
-animation:bgMove 12s linear infinite;
-opacity:.15;
+.visual-text{
+max-width:450px;
 }
 
-@keyframes bgMove{
-0%{transform:translateX(0);}
-100%{transform:translateX(-50%);}
+.visual-text h2{
+margin-bottom:15px;
 }
 
-/* PATH */
-
-.path{
-position:absolute;
-bottom:60px;
-width:100%;
-height:80px;
-background:rgba(255,255,255,0.1);
-border-radius:50px;
+.visual-text p{
+opacity:.8;
+line-height:1.6;
 }
 
-/* 🌿 ORGANIC PLANTS */
+/* FLOAT */
 
-.plant{
-position:absolute;
-bottom:120px;
-width:6px;
-height:40px;
-background:#22c55e;
-border-radius:10px;
-transform-origin:bottom;
-animation:sway 3s ease-in-out infinite;
-}
-
-.plant::after{
-content:"";
-position:absolute;
-width:20px;
-height:20px;
-background:#22c55e;
-border-radius:50%;
-top:-10px;
-left:-7px;
-}
-
-.plant1{left:20%;}
-.plant2{left:45%; animation-delay:.5s;}
-.plant3{left:70%; animation-delay:1s;}
-
-@keyframes sway{
-0%{transform:rotate(-6deg);}
-50%{transform:rotate(6deg);}
-100%{transform:rotate(-6deg);}
-}
-
-/* 🚶 CHARACTER */
-
-.character{
-position:absolute;
-bottom:90px;
-left:-60px;
-width:20px;
-height:40px;
-animation:walk 8s linear infinite;
-}
-
-.character::before{
-content:"";
-position:absolute;
-width:15px;
-height:15px;
-background:white;
-border-radius:50%;
-top:-15px;
-left:2px;
-}
-
-.character::after{
-content:"";
-position:absolute;
-width:6px;
-height:30px;
-background:white;
-left:7px;
-}
-
-/* WALK MOTION */
-
-@keyframes walk{
-0%{left:-60px;}
-50%{left:50%;}
-100%{left:110%;}
-}
-
-/* FLOATING TEXT */
-
-.journey-text{
-position:absolute;
-top:40px;
-width:100%;
-text-align:center;
-}
-
-.journey-text span{
-display:inline-block;
-margin:10px;
-padding:10px 20px;
-border-radius:30px;
-border:2px solid rgba(255,255,255,0.4);
-background:rgba(255,255,255,0.08);
-animation:floatText 4s ease-in-out infinite;
-}
-
-.journey-text span:nth-child(2){animation-delay:.5s;}
-.journey-text span:nth-child(3){animation-delay:1s;}
-.journey-text span:nth-child(4){animation-delay:1.5s;}
-
-@keyframes floatText{
+@keyframes float{
 0%{transform:translateY(0);}
-50%{transform:translateY(-10px);}
+50%{transform:translateY(-12px);}
 100%{transform:translateY(0);}
 }
 
-/* STORY SECTION */
+/* STORY */
 
 .story{
-max-width:900px;
-margin:auto;
+max-width:800px;
+margin:80px auto;
 text-align:center;
+padding:0 20px;
 line-height:1.8;
 opacity:.85;
 }
@@ -234,10 +112,11 @@ opacity:.85;
 
 .cards{
 max-width:1100px;
-margin:auto;
+margin:80px auto;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:25px;
+padding:0 20px;
 }
 
 .card{
@@ -257,11 +136,13 @@ border-color:#ff7a00;
 
 .cta{
 text-align:center;
-margin-top:60px;
+margin:100px 20px;
 }
 
+.cta h2{margin-bottom:20px;}
+
 .cta button{
-padding:14px 28px;
+padding:14px 30px;
 border:none;
 background:#ff7a00;
 color:white;
@@ -270,15 +151,21 @@ font-weight:700;
 cursor:pointer;
 }
 
-.cta button:hover{
-transform:scale(1.05);
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{font-size:32px;}
+
+.visual{
+flex-direction:column;
+text-align:center;
 }
 
-/* ANIMATION */
+.visual-text{
+text-align:center;
+}
 
-@keyframes fadeUp{
-from{opacity:0; transform:translateY(40px);}
-to{opacity:1; transform:translateY(0);}
 }
 
 </style>
@@ -298,82 +185,77 @@ to{opacity:1; transform:translateY(0);}
 </header>
 
 <!-- HERO -->
-
 <section class="hero">
-<h1>Money Skills Should Feel Like a Game</h1>
-<p>Not boring. Not confusing. Just simple, fun, and powerful.</p>
+
+<h1>Why Cashibra Exists</h1>
+<p>Because nobody teaches money the right way.</p>
+
 </section>
 
-<!-- 🌱 JOURNEY -->
+<!-- IMAGE + TEXT -->
+<section class="visual">
 
-<section class="journey">
+<img src="journey.png">
 
-<div class="bg"></div>
-
-<div class="journey-text">
-<span>Start</span>
-<span>Learn</span>
-<span>Grow</span>
-<span>Win</span>
+<div class="visual-text">
+<h2>From Confusion → To Control</h2>
+<p>
+Cashibra was created to turn boring money concepts into something fun, visual, and actually useful.
+Instead of memorizing, you learn by doing.
+</p>
 </div>
-
-<div class="path"></div>
-
-<div class="plant plant1"></div>
-<div class="plant plant2"></div>
-<div class="plant plant3"></div>
-
-<div class="character"></div>
 
 </section>
 
 <!-- STORY -->
-
 <section class="story">
 
-<h2>Why Cashibra Exists</h2>
+<h2>The Idea</h2>
 
 <p>
-Nobody teaches money properly. Not in school. Not in real life.
-So instead of waiting, we built a system where learning money feels like leveling up in a game.
+I noticed that most people grow up without understanding money — no saving habits, no investing knowledge, no real-world skills.
+So I built Cashibra to fix that.
+</p>
+
+<p>
+It’s not just learning — it’s a system where finance feels like a game.
+You complete quests, earn rewards, and build real skills at the same time.
 </p>
 
 </section>
 
 <!-- FEATURES -->
-
 <section class="cards">
 
 <div class="card">
-<h3>💰 Real Skills</h3>
-<p>Saving, investing, and smart thinking.</p>
+<h3>💰 Learn Real Skills</h3>
+<p>Saving, investing, and money habits.</p>
 </div>
 
 <div class="card">
-<h3>🎮 Game Mechanics</h3>
-<p>Quests, battles, rewards.</p>
+<h3>🎮 Gamified Learning</h3>
+<p>Quests, battles, and progression.</p>
 </div>
 
 <div class="card">
-<h3>🪙 Earn Coins</h3>
-<p>Progress like a real game.</p>
+<h3>🪙 Earn Rewards</h3>
+<p>Coins and achievements.</p>
 </div>
 
 <div class="card">
 <h3>🚀 Future Ready</h3>
-<p>Win before adulthood.</p>
+<p>Be ahead before adulthood.</p>
 </div>
 
 </section>
 
 <!-- CTA -->
-
 <section class="cta">
 
 <h2>Start Your Journey</h2>
 
 <a href="learn.html">
-<button>Enter Cashibra</button>
+<button>Start Learning</button>
 </a>
 
 </section>
